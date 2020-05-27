@@ -33,6 +33,14 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
+- task: DotNetCoreCLI@2
+  displayName: 'Pack all artifact projects (without test and sample)'
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/*.csproj;!**/*.Tests.csproj;!**/Sample.*.csproj'
+    nobuild: true
+    versioningScheme: 'off'
+
 - task: PublishBuildArtifacts@1
   displayName: 'Publish all artifact projects to staging directory'
   inputs:
